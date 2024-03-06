@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ER Waiting Time Prediction</title>
+    <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background-color: #c9d6ff;
+      background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: start;
+      color: #333;
+      text-align: center;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 20px 0;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5pt;
+        margin-left: 10px;
+    }
+
+    .wrapper{
+      width: 420px;
+      background: #fff;
+      color: #000;
+      border-radius: 30px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+      padding: 30px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .prediction-wrapper{
+      display: none;
+    }
+
+    input,
+    select {
+      background-color: #eee;
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+
+    button[type="submit"]{
+      background-color: #c9d6ff;
+      color: #000;
+      border: none;
+      outline: none;
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      margin-left: 10px;
+      box-sizing: border-box;
+      border-radius: 5px;
+    }
+
+    button[type="submit"]:hover {
+      background-color: rgb(236, 236, 236);
+    }
+    
+    h2 {
+      text-align: start;
+      color: #333;
+      text-align: center;
+    }
+
+    </style>
+
+</head>
+<body>
+  <div class="wrapper">
+    <h1>Waiting Time Prediction</h1>
+    <form method="POST" action="{{ url_for('index')}}">
+      {{ form.hidden_tag() }}
+      {{ form.FACILITY.label }} {{ form.FACILITY() }}<br>
+      {{ form.ACUITY_LEVEL.label }} {{ form.ACUITY_LEVEL() }}<br>
+      {{ form.BUILDING.label }} {{ form.BUILDING() }}<br>
+      {{ form.ADMIT_MODE.label }} {{ form.ADMIT_MODE() }}<br>
+      {{ form.DAY_OF_WEEK.label }} {{ form.DAY_OF_WEEK(disabled=true) }}<br>
+      {{ form.AGE.label }} {{ form.AGE() }}<br>
+      <p><button type="submit" onclick="showPrediction()">Start Prediction</button></p>
+    </form> 
+  </div> 
+  <div id="prediction-wrapper">
+    {% if prediction %}
+    <h2>The Waiting Time in Minutes: {{ prediction }}</h2>
+    {% endif %}
+  </div> 
+  <script>
+    function showPrediction() {
+      document.getElementById("prediction-wrappe").style.display="block";
+    }
+  </script>
+</body>
+</html>
